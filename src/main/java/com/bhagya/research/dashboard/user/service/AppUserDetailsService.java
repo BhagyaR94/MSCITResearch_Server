@@ -9,6 +9,8 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
 import com.bhagya.research.dashboard.user.dto.AppUserDTO;
+import com.bhagya.research.dashboard.user.dto.AppUserDetails;
+import com.bhagya.research.dashboard.user.mapper.UserDTOMapper;
 import com.bhagya.research.dashboard.user.mapper.UserEntityMapper;
 import com.bhagya.research.dashboard.user.repository.UserRepository;
 import com.bhagya.research.entity.User;
@@ -24,7 +26,7 @@ public class AppUserDetailsService implements UserDetailsService {
 	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
 		Optional<User> user = userRepository.findByUserName(username);
 		user.orElseThrow(() -> new UsernameNotFoundException(username));
-		return user.map(AppUserDTO::new).get();
+		return new AppUserDetails(new UserDTOMapper().mapFromUser(user.get()));
 	}
 	
 	public void saveUser(AppUserDTO appUserDTO) {

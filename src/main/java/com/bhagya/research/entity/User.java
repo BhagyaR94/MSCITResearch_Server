@@ -5,10 +5,14 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Table;
+import javax.persistence.UniqueConstraint;
+
 import com.bhagya.research.entity.enums.UserLevel;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
+@Table(uniqueConstraints={@UniqueConstraint(columnNames={"user_name"})})
 public class User {
 
 	@Id
@@ -17,20 +21,20 @@ public class User {
 
 	@Column(name = "first_name", nullable = false)
 	private String firstName;
-	
+
 	@Column(name = "last_name", nullable = false)
 	private String lastName;
-	
+
 	@Column(name = "user_name", nullable = false)
 	private String userName;
-	
+
 	@Column(name = "password", nullable = false)
 	@JsonIgnore
 	private String password;
-	
+
 	@Column(name = "last_activity", nullable = true)
 	private String lastActivity;
-	
+
 	@Column(name = "userLevel", nullable = false)
 	private UserLevel userLevel;
 

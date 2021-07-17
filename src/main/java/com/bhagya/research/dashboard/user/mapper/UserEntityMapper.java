@@ -10,7 +10,7 @@ public class UserEntityMapper {
 		user.setFirstName(appUserDTO.getFirstName());
 		user.setLastName(appUserDTO.getLastName());
 		user.setPassword(appUserDTO.getPassword());
-		user.setUserName(appUserDTO.getUsername());
+		user.setUserName(appUserDTO.getUserName());
 		user.setUserLevel(appUserDTO.getUserLevel());
 		return user;
 	}
