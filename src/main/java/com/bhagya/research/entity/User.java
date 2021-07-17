@@ -1,11 +1,10 @@
 package com.bhagya.research.entity;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.Transient;
-
 import com.bhagya.research.entity.enums.UserLevel;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
@@ -16,12 +15,23 @@ public class User {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private long id;
 
+	@Column(name = "first_name", nullable = false)
 	private String firstName;
+	
+	@Column(name = "last_name", nullable = false)
 	private String lastName;
+	
+	@Column(name = "user_name", nullable = false)
 	private String userName;
+	
+	@Column(name = "password", nullable = false)
 	@JsonIgnore
 	private String password;
+	
+	@Column(name = "last_activity", nullable = true)
 	private String lastActivity;
+	
+	@Column(name = "userLevel", nullable = false)
 	private UserLevel userLevel;
 
 	public long getId() {
