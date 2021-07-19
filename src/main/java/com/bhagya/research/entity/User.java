@@ -12,7 +12,7 @@ import com.bhagya.research.entity.enums.UserLevel;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
-@Table(uniqueConstraints={@UniqueConstraint(columnNames={"user_name"})})
+@Table(uniqueConstraints = { @UniqueConstraint(columnNames = { "user_name" }) })
 public class User {
 
 	@Id
