@@ -8,4 +8,6 @@ import com.bhagya.research.entity.User;
 
 public interface UserRepository extends JpaRepository<User, Integer> {
 	Optional<User> findByUserName(String userName);
+	
+	User findUserByUserName(String userName);
 }

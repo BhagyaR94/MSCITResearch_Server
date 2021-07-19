@@ -1,15 +1,7 @@
 package com.bhagya.research.dashboard.user.dto;
 
-import java.util.Arrays;
-import java.util.Collection;
-
-import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
-import org.springframework.security.core.userdetails.UserDetails;
-
 import com.bhagya.research.entity.User;
 import com.bhagya.research.entity.enums.UserLevel;
-import com.fasterxml.jackson.annotation.JsonProperty;
 
 public class AppUserDTO {
 
