@@ -7,19 +7,18 @@ import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 import com.bhagya.research.core.model.AuthenticationRequest;
 import com.bhagya.research.core.model.AuthenticationResponse;
-import com.bhagya.research.core.security.JWTUtil;
+import com.bhagya.research.core.security.service.AuthService;
 import com.bhagya.research.dashboard.user.service.AppUserDetailsService;
 
 @CrossOrigin(maxAge = 3600)
 @RestController
-public class MainController {
+public class AuthController {
 
 	@Autowired
 	private AuthenticationManager authenticationManager;
@@ -28,12 +27,7 @@ public class MainController {
 	private AppUserDetailsService appUserdetailsService;
 
 	@Autowired
-	private JWTUtil jwtUtil;
-
-	@GetMapping("/hello")
-	public String helloMethod() {
-		return "<h1>Hello</h1>";
-	}
+	private AuthService authService;
 
 	@RequestMapping(value = "/authenticate", method = RequestMethod.POST)
 	public ResponseEntity<?> createAuthenticationToken(@RequestBody AuthenticationRequest authenticationRequest)
@@ -47,8 +41,8 @@ public class MainController {
 		}
 
 		final UserDetails userDetails = appUserdetailsService.loadUserByUsername(authenticationRequest.getUserName());
-		final String jwt = jwtUtil.generateToken(userDetails);
-		return ResponseEntity.ok(new AuthenticationResponse(jwt));
+		appUserdetailsService.setUserInactive(userDetails.getUsername());
+		return ResponseEntity.ok(new AuthenticationResponse(authService.generateJWTToken(userDetails.getUsername())));
 	}
 
 }
