@@ -28,7 +28,18 @@ public class DBInitializer implements CommandLineRunner {
 		user.setUserName("BRathnayake");
 		user.setPassword("Welcome123");
 		user.setUserLevel(UserLevel.ADMINISTRATOR);
+		user.setActive(true);
+		
+		User temporaryUser = new User();
+		temporaryUser.setFirstName("Temporary1");
+		temporaryUser.setLastName("Rathnayake");
+		temporaryUser.setUserName("Temp1");
+		temporaryUser.setPassword("temp123");
+		temporaryUser.setUserLevel(UserLevel.TEMPORARY);
+		temporaryUser.setActive(true);
+		
 		userRepository.save(user);
+		userRepository.save(temporaryUser);
 		
 	}
 	

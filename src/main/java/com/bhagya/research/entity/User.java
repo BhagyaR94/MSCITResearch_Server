@@ -37,6 +37,10 @@ public class User {
 
 	@Column(name = "userLevel", nullable = false)
 	private UserLevel userLevel;
+	
+	@Column(name="is_active", nullable=false)
+	private boolean isActive;
+	
 
 	public long getId() {
 		return id;
@@ -92,6 +96,14 @@ public class User {
 
 	public void setUserLevel(UserLevel userLevel) {
 		this.userLevel = userLevel;
+	}
+
+	public boolean isActive() {
+		return isActive;
+	}
+
+	public void setActive(boolean isActive) {
+		this.isActive = isActive;
 	}
 
 }
