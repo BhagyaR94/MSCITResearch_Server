@@ -12,6 +12,7 @@ public class UserDTOMapper {
 		appUserDTO.setPassword(user.getPassword());
 		appUserDTO.setUserLevel(user.getUserLevel());
 		appUserDTO.setUserName(user.getUserName());
+		appUserDTO.setActive(user.isActive());
 		return appUserDTO;
 	}
 	
