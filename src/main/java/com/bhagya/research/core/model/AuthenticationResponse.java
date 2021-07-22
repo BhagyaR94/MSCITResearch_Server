@@ -9,6 +9,8 @@ public class AuthenticationResponse {
 
 	public AuthenticationResponse(String jwt, String userName, UserLevel userLevel) {
 		this.jwt = jwt;
+		this.userName = userName;
+		this.userLevel = userLevel;
 	}
 
 	public String getJwt() {
