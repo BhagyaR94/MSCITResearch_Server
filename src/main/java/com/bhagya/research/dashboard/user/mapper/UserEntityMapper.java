@@ -12,6 +12,8 @@ public class UserEntityMapper {
 		user.setPassword(appUserDTO.getPassword());
 		user.setUserName(appUserDTO.getUserName());
 		user.setUserLevel(appUserDTO.getUserLevel());
+		user.setActive(true);
+		user.setTemporaryUserName(appUserDTO.getTemporaryUserName());
 		return user;
 	}
 

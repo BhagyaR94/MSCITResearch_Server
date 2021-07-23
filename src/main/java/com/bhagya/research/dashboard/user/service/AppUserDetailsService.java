@@ -10,13 +10,11 @@ import org.springframework.stereotype.Service;
 
 import com.bhagya.research.dashboard.user.dto.AppUserDTO;
 import com.bhagya.research.dashboard.user.dto.AppUserDetails;
-import com.bhagya.research.dashboard.user.dto.EnrolledUserDTO;
 import com.bhagya.research.dashboard.user.mapper.EnrolledUserDTOMapper;
 import com.bhagya.research.dashboard.user.mapper.UserDTOMapper;
 import com.bhagya.research.dashboard.user.mapper.UserEntityMapper;
 import com.bhagya.research.dashboard.user.repository.EnrolledUserRepository;
 import com.bhagya.research.dashboard.user.repository.UserRepository;
-import com.bhagya.research.entity.EnrolledUser;
 import com.bhagya.research.entity.User;
 import com.bhagya.research.entity.enums.UserLevel;
 
@@ -46,7 +44,7 @@ public class AppUserDetailsService implements UserDetailsService {
 	public void setUserInactive(String userName) {
 		Optional<User> user = userRepository.findByUserName(userName);
 		user.orElseThrow(() -> new UsernameNotFoundException(userName));
-		if (user.get().getUserLevel() == UserLevel.TEMPORARY) {
+		if (user.isPresent() && user.get().getUserLevel() == UserLevel.TEMPORARY) {
 			user.get().setActive(false);
 			userRepository.save(user.get());
 		}
@@ -61,15 +59,6 @@ public class AppUserDetailsService implements UserDetailsService {
 
 	public void saveUser(AppUserDTO appUserDTO) {
 		userRepository.save(new UserEntityMapper().mapFromUserDTO(appUserDTO));
-	}
-
-	public void enrollNewUser(EnrolledUserDTO enrolledUserDTO) {
-		if (enrolledUserDTO.getUserLevel() != UserLevel.ADMINISTRATOR) {
-			User responsibleUser = userRepository.findUserByUserName(enrolledUserDTO.getCreatedBy());
-			EnrolledUser enrollingUser = enrolledUserDTOMapper.mapFromEnrolledUserDTO(enrolledUserDTO);
-			enrollingUser.setCreatedBy(responsibleUser);
-			enrolledUserRepository.save(enrollingUser);
-		}
 	}
 
 }

@@ -5,7 +5,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 import com.bhagya.research.dashboard.user.dto.AppUserDTO;
-import com.bhagya.research.dashboard.user.dto.EnrolledUserDTO;
 import com.bhagya.research.dashboard.user.service.AppUserDetailsService;
 
 @RestController
@@ -18,10 +17,4 @@ public class UserController {
 	public void saveUser(@RequestBody AppUserDTO appUserDTO) {
 		appUserService.saveUser(appUserDTO);
 	}
-	
-	@PostMapping("/enrollNewUser")
-	public void enrollNewUser(@RequestBody EnrolledUserDTO enrolledUserDTO) {
-		appUserService.enrollNewUser(enrolledUserDTO);
-	}
-	
 }

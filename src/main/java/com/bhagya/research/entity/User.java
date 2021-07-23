@@ -41,7 +41,9 @@ public class User {
 	@Column(name="is_active", nullable=false)
 	private boolean isActive;
 	
-
+	@Column(name="temporary_user_name", nullable=true)
+	private String temporaryUserName;
+	
 	public long getId() {
 		return id;
 	}
@@ -104,6 +106,14 @@ public class User {
 
 	public void setActive(boolean isActive) {
 		this.isActive = isActive;
+	}
+
+	public String getTemporaryUserName() {
+		return temporaryUserName;
+	}
+
+	public void setTemporaryUserName(String temporaryUserName) {
+		this.temporaryUserName = temporaryUserName;
 	}
 
 }

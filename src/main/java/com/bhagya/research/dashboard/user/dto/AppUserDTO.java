@@ -11,6 +11,7 @@ public class AppUserDTO {
 	private String password;
 	private UserLevel userLevel;
 	private boolean isActive;
+	private String temporaryUserName;
 
 	public AppUserDTO(User user) {
 		this.userName = user.getUserName();
@@ -18,7 +19,8 @@ public class AppUserDTO {
 		this.firstName = user.getFirstName();
 		this.lastName = user.getLastName();
 		this.isActive = user.isActive();
-	};
+		this.temporaryUserName = user.getTemporaryUserName();
+	}
 
 	public AppUserDTO() {
 
@@ -70,6 +72,14 @@ public class AppUserDTO {
 
 	public void setActive(boolean isActive) {
 		this.isActive = isActive;
+	}
+
+	public String getTemporaryUserName() {
+		return temporaryUserName;
+	}
+
+	public void setTemporaryUserName(String temporaryUserName) {
+		this.temporaryUserName = temporaryUserName;
 	}
 	
 }
