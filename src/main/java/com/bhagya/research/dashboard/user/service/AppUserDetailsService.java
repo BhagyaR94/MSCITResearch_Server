@@ -36,7 +36,7 @@ public class AppUserDetailsService implements UserDetailsService {
 		user.orElseThrow(() -> new UsernameNotFoundException(username));
 		AppUserDetails appUserDetail = new AppUserDetails(new UserDTOMapper().mapFromUser(user.get()));
 
-		checkUserActive(user.get().isActive());
+//		checkUserActive(user.get().isActive());
 
 		return appUserDetail;
 	}
