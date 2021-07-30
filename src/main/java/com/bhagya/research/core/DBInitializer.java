@@ -13,10 +13,6 @@ public class DBInitializer implements CommandLineRunner {
 	
 	@Autowired
 	private UserRepository userRepository;
-	
-	public DBInitializer(UserRepository repository) {
-		this.userRepository = userRepository;
-	}
 
 	@Override
 	public void run(String... args) throws Exception {
