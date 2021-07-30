@@ -6,15 +6,19 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
+
+import com.bhagya.research.core.exception.TokenRefreshException;
 import com.bhagya.research.core.model.AuthenticationRequest;
 import com.bhagya.research.core.model.AuthenticationResponse;
+import com.bhagya.research.core.model.TokenRefreshRequest;
 import com.bhagya.research.core.security.service.AuthService;
+import com.bhagya.research.core.security.service.RefreshTokenService;
 import com.bhagya.research.dashboard.user.dto.AppUserDetails;
 import com.bhagya.research.dashboard.user.service.AppUserDetailsService;
+import com.bhagya.research.entity.RefreshToken;
 import com.bhagya.research.entity.enums.UserLevel;
 
 @CrossOrigin(maxAge = 3600)
@@ -30,7 +34,10 @@ public class AuthController {
 	@Autowired
 	private AuthService authService;
 
-	@RequestMapping(value = "/authenticate", method = RequestMethod.POST)
+	@Autowired
+	private RefreshTokenService refreshTokenService;
+
+	@PostMapping(value = "/authenticate")
 	public ResponseEntity<?> createAuthenticationToken(@RequestBody AuthenticationRequest authenticationRequest)
 			throws Exception {
 
@@ -46,8 +53,22 @@ public class AuthController {
 		if (userDetails.getAppUserDTO().getUserLevel().equals(UserLevel.TEMPORARY)) {
 			appUserdetailsService.setUserInactive(userDetails.getUsername());
 		}
-		return ResponseEntity.ok(new AuthenticationResponse(authService.generateJWTToken(userDetails.getUsername()), userDetails.getUsername(),
-				userDetails.getAppUserDTO().getUserLevel()));
+		return ResponseEntity.ok(new AuthenticationResponse(authService.generateJWTToken(userDetails.getUsername()),
+				userDetails.getUsername(), userDetails.getAppUserDTO().getUserLevel(),
+				refreshTokenService.createRefreshTokenService(userDetails.getUsername()).getToken()));
+	}
+
+	@PostMapping("/refreshtoken")
+	public ResponseEntity<?> refreshtoken(@RequestBody TokenRefreshRequest request) {
+		String requestRefreshToken = request.getRefreshToken();
+
+		return refreshTokenService.findByToken(requestRefreshToken).map(refreshTokenService::verifyExpiration)
+				.map(RefreshToken::getUser).map(user -> {
+					String token = authService.generateJWTToken(user.getUserName());
+					return ResponseEntity.ok(new AuthenticationResponse(token, user.getUserName(), user.getUserLevel(),
+							requestRefreshToken));
+				})
+				.orElseThrow(() -> new TokenRefreshException(requestRefreshToken, "Refresh token is not in database!"));
 	}
 
 }

@@ -6,11 +6,13 @@ public class AuthenticationResponse {
 	private final String jwt;
 	private final String userName;
 	private final UserLevel userLevel;
+	private final String refreshToken;
 
-	public AuthenticationResponse(String jwt, String userName, UserLevel userLevel) {
+	public AuthenticationResponse(String jwt, String userName, UserLevel userLevel, String refreshToken) {
 		this.jwt = jwt;
 		this.userName = userName;
 		this.userLevel = userLevel;
+		this.refreshToken = refreshToken;
 	}
 
 	public String getJwt() {
@@ -23,6 +25,10 @@ public class AuthenticationResponse {
 
 	public UserLevel getUserLevel() {
 		return userLevel;
+	}
+
+	public String getRefreshToken() {
+		return refreshToken;
 	}
 	
 }

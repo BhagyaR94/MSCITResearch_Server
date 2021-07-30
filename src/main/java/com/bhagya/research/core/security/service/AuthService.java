@@ -7,13 +7,13 @@ import com.bhagya.research.core.security.JWTUtil;
 
 @Service
 public class AuthService {
-	private static final int STANDARD_USER_TOKEN_DURATION = 1000 * 60 * 60 * 10;
+	private static final int JWT_EXPIRATION = 1000 * 60 * 60 * 10;
 	
 	@Autowired
 	private JWTUtil jwtUtil;
 
 	public String generateJWTToken(String userName) {
-		return jwtUtil.generateToken(userName, STANDARD_USER_TOKEN_DURATION);
+		return jwtUtil.generateToken(userName, JWT_EXPIRATION);
 	}
 	
 }
