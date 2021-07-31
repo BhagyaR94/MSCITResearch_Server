@@ -12,6 +12,8 @@ import io.jsonwebtoken.UnsupportedJwtException;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 
+import com.bhagya.research.core.exception.TokenRefreshException;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -58,17 +60,18 @@ public class JWTUtil {
 	                .signWith(SignatureAlgorithm.HS256, SECRET_KEY).compact();
 	    }
 
-		public boolean validateToken(String token, UserDetails userDetails) {
+		public boolean validateToken(String token, String userName) throws TokenRefreshException {
 			boolean isTokenValid = false;
 			try {
 				final String username = extractUsername(token);
-				isTokenValid = (username.equals(userDetails.getUsername()) && !isTokenExpired(token));
+				isTokenValid = (username.equals(userName) && !isTokenExpired(token));
 			} catch (SignatureException e) {
 				logger.error("Invalid JWT signature: {}", e.getMessage());
 			} catch(MalformedJwtException  e) {
 				logger.error("Invalid JWT token: {}", e.getMessage());
 			} catch(ExpiredJwtException e) {
 				logger.error("JWT token is expired: {}", e.getMessage());
+				throw new TokenRefreshException(token, "jwt expired");
 			} catch(UnsupportedJwtException e) {
 				logger.error("JWT token is unsupported: {}", e.getMessage());
 			} catch(IllegalArgumentException e) {
