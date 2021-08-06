@@ -57,7 +57,7 @@ public class JWTRequestFilter extends OncePerRequestFilter {
 			TokenRefreshException errorResponse = new TokenRefreshException("JWT Token Expired.", exception.getMessage());
 
             response.setStatus(HttpStatus.FORBIDDEN.value());
-            response.getWriter().write(convertObjectToJson(errorResponse.getMessage()));
+//            response.getWriter().write(convertObjectToJson(errorResponse.getMessage()));
 		}
 		
 		filterChain.doFilter(request, response);

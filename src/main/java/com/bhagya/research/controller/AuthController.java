@@ -21,8 +21,8 @@ import com.bhagya.research.dashboard.user.service.AppUserDetailsService;
 import com.bhagya.research.entity.RefreshToken;
 import com.bhagya.research.entity.enums.UserLevel;
 
-@CrossOrigin(maxAge = 3600)
 @RestController
+@CrossOrigin(maxAge = 3600, origins = "*", exposedHeaders = "**")
 public class AuthController {
 
 	@Autowired
@@ -37,7 +37,7 @@ public class AuthController {
 	@Autowired
 	private RefreshTokenService refreshTokenService;
 
-	@PostMapping(value = "/authenticate")
+	@PostMapping("/authenticate")
 	public ResponseEntity<?> createAuthenticationToken(@RequestBody AuthenticationRequest authenticationRequest)
 			throws Exception {
 
@@ -53,6 +53,11 @@ public class AuthController {
 		if (userDetails.getAppUserDTO().getUserLevel().equals(UserLevel.TEMPORARY)) {
 			appUserdetailsService.setUserInactive(userDetails.getUsername());
 		}
+
+		refreshTokenService.findByUser(userDetails.getUsername()).stream().forEach(refreshToken -> {
+			refreshTokenService.deleteRefreshToken(refreshToken);
+		});
+
 		return ResponseEntity.ok(new AuthenticationResponse(authService.generateJWTToken(userDetails.getUsername()),
 				userDetails.getUsername(), userDetails.getAppUserDTO().getUserLevel(),
 				refreshTokenService.createRefreshTokenService(userDetails.getUsername()).getToken()));
@@ -69,6 +74,11 @@ public class AuthController {
 							requestRefreshToken));
 				})
 				.orElseThrow(() -> new TokenRefreshException(requestRefreshToken, "Refresh token is not in database!"));
+	}
+
+	@PostMapping("/signout")
+	public ResponseEntity<?> logout(@RequestBody TokenRefreshRequest request) {
+		return ResponseEntity.ok(new AuthenticationResponse("", "", null, ""));
 	}
 
 }
