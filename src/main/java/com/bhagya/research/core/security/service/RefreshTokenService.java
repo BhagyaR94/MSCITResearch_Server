@@ -4,8 +4,6 @@ import java.time.Instant;
 import java.util.Optional;
 import java.util.UUID;
 
-import javax.transaction.Transactional;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -28,6 +26,10 @@ public class RefreshTokenService {
 	public Optional<RefreshToken> findByToken(String token) {
 	    return refreshTokenRepository.findByToken(token);
 	  }
+	
+	public Optional<RefreshToken> findByUser(String userName){
+		return refreshTokenRepository.findByUser(userRepository.findUserByUserName(userName));
+	}
 
 	public RefreshToken createRefreshTokenService(String userName) {
 		RefreshToken refreshToken = new RefreshToken();
@@ -46,12 +48,9 @@ public class RefreshTokenService {
 
 		return token;
 	}
-
-	@Transactional
-	public int deleteByUserId(String userName) {
-		return refreshTokenRepository.deleteByUser(
-				userRepository.findByUserName(userName).isPresent() ? userRepository.findByUserName(userName).get()
-						: null);
+	
+	public void deleteRefreshToken(RefreshToken refreshToken) {
+		refreshTokenRepository.delete(refreshToken);
 	}
 
 }
