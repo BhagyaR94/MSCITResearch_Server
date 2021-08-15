@@ -1,0 +1,6 @@
+package com.bhagya.research.entity.enums;
+
+public enum DressCode {
+	FULLY_BLACK, FULLY_WHITE, FORMAL, BUSINESS_CASUAL, INDUSTRIAL_CASUAL, SMART_CASUAL, ELEGENT, FASHIONABLE, CASUAL,
+	APPROPRIATE, NONE
+}

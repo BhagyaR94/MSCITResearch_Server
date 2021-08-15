@@ -37,11 +37,11 @@ public class EnrolledUser {
 
 	@Column(name = "updated_on")
 	private Date updateOn;
-	
+
 	@ManyToOne(targetEntity = com.bhagya.research.entity.User.class, cascade = CascadeType.ALL)
-	@JoinColumn(name="user", referencedColumnName="id")
+	@JoinColumn(name = "user", referencedColumnName = "id")
 	private User createdBy;
-	
+
 	public long getId() {
 		return id;
 	}

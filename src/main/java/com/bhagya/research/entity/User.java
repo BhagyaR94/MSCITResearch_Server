@@ -37,13 +37,13 @@ public class User {
 
 	@Column(name = "userLevel", nullable = false)
 	private UserLevel userLevel;
-	
-	@Column(name="is_active", nullable=false)
+
+	@Column(name = "is_active", nullable = false)
 	private boolean isActive;
-	
-	@Column(name="temporary_user_name", nullable=true)
+
+	@Column(name = "temporary_user_name", nullable = true)
 	private String temporaryUserName;
-	
+
 	public long getId() {
 		return id;
 	}

@@ -44,7 +44,7 @@ public class JWTRequestFilter extends OncePerRequestFilter {
 				jwt = authorizationHeader.substring(7);
 				userName = jwtUtil.extractUsername(jwt);
 			}
-			
+
 			if (userName != null && SecurityContextHolder.getContext().getAuthentication() == null) {
 				UserDetails userDetails = this.appUserdetailsService.loadUserByUsername(userName);
 				if (jwtUtil.validateToken(jwt, userDetails.getUsername())) {
@@ -54,22 +54,23 @@ public class JWTRequestFilter extends OncePerRequestFilter {
 				}
 			}
 		} catch (ExpiredJwtException exception) {
-			TokenRefreshException errorResponse = new TokenRefreshException("JWT Token Expired.", exception.getMessage());
+			TokenRefreshException errorResponse = new TokenRefreshException("JWT Token Expired.",
+					exception.getMessage());
 
-            response.setStatus(HttpStatus.FORBIDDEN.value());
+			response.setStatus(HttpStatus.FORBIDDEN.value());
 //            response.getWriter().write(convertObjectToJson(errorResponse.getMessage()));
 		}
-		
+
 		filterChain.doFilter(request, response);
 
 	}
-	
+
 	public String convertObjectToJson(Object object) throws JsonProcessingException {
-        if (object == null) {
-            return null;
-        }
-        ObjectMapper mapper = new ObjectMapper();
-        return mapper.writeValueAsString(object);
-    }
+		if (object == null) {
+			return null;
+		}
+		ObjectMapper mapper = new ObjectMapper();
+		return mapper.writeValueAsString(object);
+	}
 
 }

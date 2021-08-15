@@ -30,5 +30,5 @@ public class AuthenticationResponse {
 	public String getRefreshToken() {
 		return refreshToken;
 	}
-	
+
 }
