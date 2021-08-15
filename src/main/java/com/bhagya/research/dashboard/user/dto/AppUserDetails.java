@@ -5,9 +5,8 @@ import java.util.Collection;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
-
 public class AppUserDetails implements UserDetails {
-	
+
 	private AppUserDTO appUserDTO;
 
 	public AppUserDetails(AppUserDTO appUserDTO) {

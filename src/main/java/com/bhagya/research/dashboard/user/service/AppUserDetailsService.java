@@ -40,7 +40,7 @@ public class AppUserDetailsService implements UserDetailsService {
 
 		return appUserDetail;
 	}
-	
+
 	public void setUserInactive(String userName) {
 		Optional<User> user = userRepository.findByUserName(userName);
 		user.orElseThrow(() -> new UsernameNotFoundException(userName));

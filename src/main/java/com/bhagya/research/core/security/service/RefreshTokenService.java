@@ -22,12 +22,12 @@ public class RefreshTokenService {
 
 	@Autowired
 	private UserRepository userRepository;
-	
+
 	public Optional<RefreshToken> findByToken(String token) {
-	    return refreshTokenRepository.findByToken(token);
-	  }
-	
-	public Optional<RefreshToken> findByUser(String userName){
+		return refreshTokenRepository.findByToken(token);
+	}
+
+	public Optional<RefreshToken> findByUser(String userName) {
 		return refreshTokenRepository.findByUser(userRepository.findUserByUserName(userName));
 	}
 
@@ -43,12 +43,13 @@ public class RefreshTokenService {
 	public RefreshToken verifyExpiration(RefreshToken token) {
 		if (token.getExpiresOn().compareTo(Instant.now()) < 0) {
 			refreshTokenRepository.delete(token);
-	      throw new TokenRefreshException(token.getToken(), "Refresh token was expired. Please make a new signin request");
+			throw new TokenRefreshException(token.getToken(),
+					"Refresh token was expired. Please make a new signin request");
 		}
 
 		return token;
 	}
-	
+
 	public void deleteRefreshToken(RefreshToken refreshToken) {
 		refreshTokenRepository.delete(refreshToken);
 	}

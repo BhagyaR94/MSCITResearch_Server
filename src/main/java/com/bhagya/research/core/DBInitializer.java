@@ -10,14 +10,14 @@ import com.bhagya.research.entity.enums.UserLevel;
 
 @Component
 public class DBInitializer implements CommandLineRunner {
-	
+
 	@Autowired
 	private UserRepository userRepository;
 
 	@Override
 	public void run(String... args) throws Exception {
 		this.userRepository.deleteAll();
-		
+
 		User user = new User();
 		user.setFirstName("Bhagya");
 		user.setLastName("Rathnayake");
@@ -25,7 +25,7 @@ public class DBInitializer implements CommandLineRunner {
 		user.setPassword("Welcome123");
 		user.setUserLevel(UserLevel.ADMINISTRATOR);
 		user.setActive(true);
-		
+
 		User temporaryUser = new User();
 		temporaryUser.setFirstName("Temporary1");
 		temporaryUser.setLastName("Rathnayake");
@@ -33,12 +33,10 @@ public class DBInitializer implements CommandLineRunner {
 		temporaryUser.setPassword("temp123");
 		temporaryUser.setUserLevel(UserLevel.TEMPORARY);
 		temporaryUser.setActive(true);
-		
+
 		userRepository.save(user);
 		userRepository.save(temporaryUser);
-		
+
 	}
-	
-	
 
 }

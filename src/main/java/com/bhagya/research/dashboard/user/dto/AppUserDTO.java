@@ -81,5 +81,5 @@ public class AppUserDTO {
 	public void setTemporaryUserName(String temporaryUserName) {
 		this.temporaryUserName = temporaryUserName;
 	}
-	
+
 }
