@@ -6,6 +6,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 import com.bhagya.research.entity.EnrolledUser;
 
-public interface EnrolledUserRepository extends JpaRepository<EnrolledUser, Integer>{
+public interface EnrolledUserRepository extends JpaRepository<EnrolledUser, Integer> {
 	Optional<EnrolledUser> findByEmail(String email);
 }
