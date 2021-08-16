@@ -3,6 +3,7 @@ package com.bhagya.research.business.event.dto;
 import java.util.Collection;
 import java.util.Date;
 
+import com.bhagya.research.core.dto.ImageDTO;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.bhagya.research.entity.enums.DressCode;
@@ -23,7 +24,7 @@ public class EventDTO {
 	private String city;
 	private String country;
 	private DressCode dressCode;
-	private String thumbnail;
+	private ImageDTO thumbnail;
 	private Collection<String> hashTags;
 	private String prerequisits;
 	private String registration;
@@ -115,11 +116,11 @@ public class EventDTO {
 		this.dressCode = dressCode;
 	}
 
-	public String getThumbnail() {
+	public ImageDTO getThumbnail() {
 		return thumbnail;
 	}
 
-	public void setThumbnail(String thumbnail) {
+	public void setThumbnail(ImageDTO thumbnail) {
 		this.thumbnail = thumbnail;
 	}
 
