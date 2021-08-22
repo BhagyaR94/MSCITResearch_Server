@@ -24,4 +24,14 @@ public class EventController {
 		return ResponseEntity.ok(eventService.createEvent(eventDTO));
 	}
 
+	@PostMapping("/loadEvents")
+	public ResponseEntity<?> loadEvents(){
+		return ResponseEntity.ok(eventService.getAllEvents());
+	}
+
+	@PostMapping("/getThumbnailByEventId")
+	public ResponseEntity<?> getThumbnailByEventId(@RequestBody String id) throws IOException {
+		return ResponseEntity.ok(eventService.loadImageByEventId(id));
+	}
+
 }

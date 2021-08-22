@@ -14,6 +14,7 @@ import com.bhagya.research.entity.enums.RiskLevel;
 
 public class EventDTO {
 
+	private String id;
 	private String name;
 	private String description;
 	private Date start;
@@ -204,4 +205,11 @@ public class EventDTO {
 		this.facilities = facilities;
 	}
 
+	public String getId() {
+		return id;
+	}
+
+	public void setId(String id) {
+		this.id = id;
+	}
 }

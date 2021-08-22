@@ -30,7 +30,7 @@ public class EventDTOMapper {
 		eventDTO.setOrganizers(event.getOrganizers());
 		eventDTO.setFacilities(event.getFacilities());
 		eventDTO.setRiskLevel(event.getRiskLevel());
-//		eventDTO.setThumbnail(event.getThumbnail());
+		eventDTO.setId(event.getId().toString());
 		return eventDTO;
 	}
 
@@ -56,7 +56,6 @@ public class EventDTOMapper {
 		event.setOrganizers(eventDTO.getOrganizers());
 		event.setFacilities(eventDTO.getFacilities());
 		event.setRiskLevel(eventDTO.getRiskLevel());
-//		event.setThumbnail(eventDTO.getThumbnail());
 		return event;
 	}
 
