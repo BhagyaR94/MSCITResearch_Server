@@ -34,7 +34,7 @@ public class DestinationService {
 
 //        externalService.getDataFromExternalSource("https://research-algorithm.herokuapp.com/loadOptimizedDestinations", destinationRequestDTO, headers);
 
-        return Arrays.asList(objectMapper.readValue(externalService.getDataFromExternalSource("http://127.0.0.1:5000/loadOptimizedDestinations", object, headers), DestinationDTO[].class));
+        return Arrays.asList(objectMapper.readValue(externalService.getDataFromExternalSource("https://research-algorithm.herokuapp.com/loadOptimizedDestinations", object, headers), DestinationDTO[].class));
     }
 
 }
