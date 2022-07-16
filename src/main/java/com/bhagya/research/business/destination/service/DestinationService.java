@@ -20,21 +20,15 @@ public class DestinationService {
     @Autowired
     private ExternalService externalService;
 
-    public List<DestinationDTO> loadDestinationsByPreference() throws JsonProcessingException {
+    public List<DestinationDTO> loadDestinationsByPreference(DestinationRequestDTO destinationRequestDTO) throws JsonProcessingException {
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_JSON);
-        DestinationRequestDTO destinationRequestDTO = new DestinationRequestDTO();
-        destinationRequestDTO.setCategories(Arrays.asList(DestinationCategory.BUDDHISM, DestinationCategory.JUNGLE, DestinationCategory.HERITAGE, DestinationCategory.NATURE, DestinationCategory.WATERFALL, DestinationCategory.ANIMALS));
-        destinationRequestDTO.setBudget(10000);
-        destinationRequestDTO.setDurationOfStay(36);
 
         ObjectMapper objectMapper = new ObjectMapper();
         String object = objectMapper.writeValueAsString(destinationRequestDTO);
 
-
-//        externalService.getDataFromExternalSource("https://research-algorithm.herokuapp.com/loadOptimizedDestinations", destinationRequestDTO, headers);
-
-        return Arrays.asList(objectMapper.readValue(externalService.getDataFromExternalSource("https://research-algorithm.herokuapp.com/loadOptimizedDestinations", object, headers), DestinationDTO[].class));
+        return Arrays.asList(objectMapper.readValue(externalService.getDataFromExternalSource("http://127.0.0.1:5000/loadOptimizedDestinations", object, headers), DestinationDTO[].class));
+//        return Arrays.asList(objectMapper.readValue(externalService.getDataFromExternalSource("https://research-algorithm.herokuapp.com/loadOptimizedDestinations", object, headers), DestinationDTO[].class));
     }
 
 }
