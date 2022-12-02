@@ -3,15 +3,15 @@ package com.bhagya.research.business.destination.dto;
 import java.util.List;
 
 public class DestinationRequestDTO {
-    private List<DestinationCategory> categories;
+    private List<DestinationCategoryDTO> categories;
     private int durationOfStay;
     private int budget;
 
-    public List<DestinationCategory> getCategories() {
+    public List<DestinationCategoryDTO> getCategories() {
         return categories;
     }
 
-    public void setCategories(List<DestinationCategory> categories) {
+    public void setCategories(List<DestinationCategoryDTO> categories) {
         this.categories = categories;
     }
 

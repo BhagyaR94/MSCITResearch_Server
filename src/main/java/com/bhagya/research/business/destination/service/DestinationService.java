@@ -1,6 +1,5 @@
 package com.bhagya.research.business.destination.service;
 
-import com.bhagya.research.business.destination.dto.DestinationCategory;
 import com.bhagya.research.business.destination.dto.DestinationDTO;
 import com.bhagya.research.business.destination.dto.DestinationRequestDTO;
 import com.bhagya.research.external.ExternalService;
