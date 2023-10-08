@@ -4,6 +4,7 @@ import com.bhagya.research.business.destination.dto.DestinationCategory;
 import com.bhagya.research.business.destination.dto.DestinationDTO;
 import com.bhagya.research.business.destination.dto.DestinationRequestDTO;
 import com.bhagya.research.business.destination.service.DestinationService;
+import com.bhagya.research.core.dto.ImageButtonDTO;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -25,8 +26,8 @@ public class DestinationController {
     }
 
     @PostMapping("/loadDestinationCategories")
-    public List<DestinationCategory> loadDestinationCategories() {
-        return Arrays.asList(DestinationCategory.values());
+    public List<ImageButtonDTO> loadDestinationCategories() {
+        return destinationService.loadDestinationCategories();
     }
 
 }
